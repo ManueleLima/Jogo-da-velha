@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>JogodaVelha</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,500;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swaptorrel="stylesheet">
+    </head>
+<body>
+    <div id= "box">
+        <div id="boxmenu">
+            <div id="boxinside1">
+                <h1 id="titulo"> Jogo da Velha</h1>
+            </div>
+        </div>
+        <div id="boxplacar">
+            <div id="boxinside2">
+                <div id="screen">
+                    <div id="boxjogador1" class="placar">X : <span id="PlacarPlayer1"></span></div>
+                    <div id="boxjogador2" class="placar">O : <span id="PlacarPlayer2"></span></div>
+                </div>
+            </div>
+        </div>
+        <div id="boxjogo">
+            <div id="boxinside3">
+                <table border="1">
+                    <tr>
+                        <td id="td01" onclick="acao('td01')"></td>
+                        <td id="td02" onclick="acao('td02')"></td>
+                        <td id="td03" onclick="acao('td03')"></td>
+                    </tr>
+                    <tr>
+                        <td id="td04" onclick="acao('td04')"></td>
+                        <td id="td05" onclick="acao('td05')"></td>
+                        <td id="td06" onclick="acao('td06')"></td>
+                    </tr>
+                    <tr>
+                        <td id="td07" onclick="acao('td07')"></td>
+                        <td id="td08" onclick="acao('td08')"></td>
+                        <td id="td09" onclick="acao('td09')"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+<script>
+
+    var fase='X';
+    var fimDeJogo = false;
+    var placarJogador1 = 0;
+    var placarJogador2 = 0;
+    var placar = [0,0];
+    vitoria(null);
+
+function verificarFase(){
+    if(fase == 'X'){
+        fase = 'O';
+    }else if(fase =='O'){
+        fase = 'X';
+    }
+}
+function vitoria(jogador){
+    //placar[jogador] = placar[jogador] + 1;
+    if(jogador!=null){
+        placar[jogador]++;
+    }
+    document.getElementById('PlacarPlayer1').innerHTML = placar[0];
+    document.getElementById('PlacarPlayer2').innerHTML = placar[1];
+    
+}
+function testeLinha01(){
+    var a = document.getElementById('td01').innerHTML;
+    var b = document.getElementById('td02').innerHTML;
+    var c = document.getElementById('td03').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeLinha02(){
+    var a = document.getElementById('td04').innerHTML;
+    var b = document.getElementById('td05').innerHTML;
+    var c = document.getElementById('td06').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeLinha03(){
+    var a = document.getElementById('td07').innerHTML;
+    var b = document.getElementById('td08').innerHTML;
+    var c = document.getElementById('td09').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeColuna01(){
+    var a = document.getElementById('td01').innerHTML;
+    var b = document.getElementById('td04').innerHTML;
+    var c = document.getElementById('td07').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeColuna02(){
+    var a = document.getElementById('td02').innerHTML;
+    var b = document.getElementById('td05').innerHTML;
+    var c = document.getElementById('td08').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeColuna03(){
+    var a = document.getElementById('td03').innerHTML;
+    var b = document.getElementById('td06').innerHTML;
+    var c = document.getElementById('td09').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeDiagonal01(){
+    var a = document.getElementById('td01').innerHTML;
+    var b = document.getElementById('td05').innerHTML;
+    var c = document.getElementById('td09').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function testeDiagonal02(){
+    var a = document.getElementById('td03').innerHTML;
+    var b = document.getElementById('td05').innerHTML;
+    var c = document.getElementById('td07').innerHTML;
+
+    if((a != '' && b != '' && c != '') && (a == b && b == c)){
+        return true;
+    }else{
+        return  false;
+    }
+}
+function verificarGanhador(){
+    var texto = document.getElementById('titulo').innerHTML;
+    var prefixo = texto + ' || ' + 'Jogador ';
+    var sufixo = ' Venceu!';
+    var jogador = '';
+    var count = 5;
+    if(testeLinha01()){
+        jogador = document.getElementById('td01').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo; 
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeLinha02()){
+        jogador = document.getElementById('td04').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeLinha03()){
+        jogador = document.getElementById('td07').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeColuna01()){
+        jogador = document.getElementById('td01').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeColuna02()){
+        jogador = document.getElementById('td02').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeColuna03()){
+        jogador = document.getElementById('td03').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeDiagonal01()){
+        jogador = document.getElementById('td01').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(testeDiagonal02()){
+        jogador = document.getElementById('td03').innerHTML;
+        //document.getElementById('titulo').innerHTML = prefixo + jogador + sufixo;
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }else if(verificarEmpate()){
+        //document.getElementById('titulo').innerHTML = texto + ' || Empate!';
+        vitoria(resultado = jogador=='X' ? 0 : 1);
+        reset();
+    }
+}
+
+function verificarEmpate(){
+    var a = document.getElementById('td01').innerHTML;
+    var b = document.getElementById('td02').innerHTML;
+    var c = document.getElementById('td03').innerHTML;
+    var d = document.getElementById('td04').innerHTML;
+    var e = document.getElementById('td05').innerHTML;
+    var f = document.getElementById('td06').innerHTML;
+    var g = document.getElementById('td07').innerHTML;
+    var h = document.getElementById('td08').innerHTML;
+    var i = document.getElementById('td09').innerHTML;
+
+    if (a != '' && 
+        b != '' && 
+        c != '' && 
+        d != '' && 
+        e != '' &&
+        f != '' &&
+        g != '' &&
+        h != '' &&
+        i != '' )
+    {
+        return true;
+    }else{
+        return  false;
+    }
+}
+function verificarCampoVazio(campo){
+    valor = document.getElementById(campo).innerHTML;
+    if(valor == ''){
+        return true;
+    }else{
+        return false;
+    }
+}
+function reset(){
+    fimDeJogo = true;
+    setTimeout(function(){
+            //document.location.reload(true);
+            limparTabuleiro();
+        }, 1000);
+}
+function limparTabuleiro(){
+    for(var i=0;i<9;i++){
+        var campo = 'td0' + (i+1);
+        document.getElementById(campo).innerHTML = '';
+    }
+    fimDeJogo = false;
+    fase = 'X';
+}
+function acao(param){
+    if(fimDeJogo == false){ 
+        if(verificarCampoVazio(param)){
+            document.getElementById(param).innerHTML = fase;
+            verificarFase();
+            verificarGanhador();
+            verificarEmpate();
+        }
+    }
+}
+</script>
+</boby>
+</html>
